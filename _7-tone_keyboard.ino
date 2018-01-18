@@ -3,10 +3,10 @@
 //7 tone keyboard program by Nathan Bhak and Chris Ye
 
 //sets pins for LCD display
-LiquidCrystal lcd(11,12,13,14,15,16);
+LiquidCrystal lcd(8,9,10,11,12,13);
 
 //sets pins for each button
-const int buttons[7] = {3,4,5,6,7,8,9};
+const int buttons[7] = {A5,A4,A3,A2,A1,A0,3};
 //sets pin for speaker
 const int speaker = 2;
 //all buttons are initially off
@@ -44,10 +44,10 @@ void loop() {
   for(int i=0; i<=6; i++){
 
     //reads the state of each button
-    buttonStates[i] = digitalRead(buttonStates[i]);
+    buttonStates[i] = digitalRead(buttons[i]);
 
-    //if the button is switched on
-    if(buttonStates[i] == HIGH){
+    //while the button is being pressed
+    while(buttonStates[i] == HIGH){
       
       //displays the note
       lcd.print(pitches[i]);
@@ -63,9 +63,7 @@ void loop() {
     }
 
     //if not button is pressed, then turn off the speaker
-    else{
-      digitalWrite(speaker, LOW);
-    }
+    digitalWrite(speaker, LOW);
 
   }
 
