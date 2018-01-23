@@ -3,19 +3,17 @@
 //7 tone keyboard program by Nathan Bhak and Chris Ye
 
 //sets pins for LCD display
-LiquidCrystal lcd(8,9,10,11,12,13);
+LiquidCrystal lcd(13,12,11,10,9,8);
 
 //sets pins for each button
 const int buttons[7] = {A5,A4,A3,A2,A1,A0,3};
 //sets pin for speaker
 const int speaker = 2;
-//all buttons are initially off
-int buttonStates[7] = {0,0,0,0,0,0,0};
 
 //array of pitches
-const char pitches[] = {'C','D','E','F','G','A','B'};
+const char pitches[] = {'B','A','G','F','E','D','C'};
 //array of frequencies
-const int tones[] = {1915, 1700, 1519, 1432, 1275, 1136, 1014};
+const int tones[] = {247,220,196,175,165,147,131};
 
 //represents the pitch
 int noteTone = 0;
@@ -23,11 +21,11 @@ int noteTone = 0;
 void setup() {
 
   //number of columns and rows being used on the display
-  lcd.begin(1,1);
+  lcd.begin(16,2);
 
   //sets all buttons as input devices
   for(int i=0; i<=6; i++){
-    pinMode(buttons[i],INPUT);
+    pinMode(buttons[i],INPUT_PULLUP);
   }
 
   //sets the speaker as an output device
@@ -37,17 +35,14 @@ void setup() {
 
 void loop() {
 
-  //sets the location of the text on the display
-  lcd.setCursor(0,0);
-
   //repeats 7 times
   for(int i=0; i<=6; i++){
-
-    //reads the state of each button
-    buttonStates[i] = digitalRead(buttons[i]);
-
+    
+    //sets the location of the text on the display
+    lcd.setCursor(0,0);
+    
     //while the button is being pressed
-    while(buttonStates[i] == HIGH){
+    if(! digitalRead(buttons[i])){
       
       //displays the note
       lcd.print(pitches[i]);
@@ -56,15 +51,13 @@ void loop() {
       noteTone = tones[i];
 
       //plays the note with the correct frequency
-      digitalWrite(speaker, HIGH);
-      delayMicroseconds(noteTone);
-      digitalWrite(speaker, LOW);
-      delayMicroseconds(noteTone);
+      tone(speaker,noteTone);
     }
 
-    //if not button is pressed, then turn off the speaker
-    digitalWrite(speaker, LOW);
-
+    else{
+      //if no button is pressed, then turn off the speaker
+      noTone(speaker);
+    }
   }
 
 }
