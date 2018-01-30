@@ -11,12 +11,25 @@ const int buttons[7] = {A5,A4,A3,A2,A1,A0,3};
 const int speaker = 2;
 
 //array of pitches
-const char pitches[] = {'B','A','G','F','E','D','C'};
+const char pitches[7] = {'B','A','G','F','E','D','C'};
 //array of frequencies
-const int tones[] = {247,220,196,175,165,147,131};
+const int tones[7] = {494,440,392,349,330,294,262};
 
 //represents the pitch
 int noteTone = 0;
+
+void playNote(int x){
+      
+      //displays the note
+      lcd.print(pitches[x]);
+
+      //sets the pitch to the note represented by the button pressed
+      noteTone = tones[x];
+
+      //plays the note with the correct frequency
+      tone(speaker,noteTone);
+  
+}
 
 void setup() {
 
@@ -34,30 +47,45 @@ void setup() {
 }
 
 void loop() {
-
-  //repeats 7 times
-  for(int i=0; i<=6; i++){
-    
+  
     //sets the location of the text on the display
     lcd.setCursor(0,0);
     
-    //while the button is being pressed
-    if(! digitalRead(buttons[i])){
-      
-      //displays the note
-      lcd.print(pitches[i]);
-
-      //sets the pitch to the note represented by the button pressed
-      noteTone = tones[i];
-
-      //plays the note with the correct frequency
-      tone(speaker,noteTone);
+    if(! digitalRead(buttons[0])){
+      playNote(0);
+    }
+ 
+    else if(! digitalRead(buttons[1])){
+      playNote(1);
     }
 
+    else if(! digitalRead(buttons[2])){
+      playNote(2);
+    }
+
+    else if(! digitalRead(buttons[3])){
+      playNote(3);
+    }
+
+    else if(! digitalRead(buttons[4])){
+      playNote(4);
+    }
+ 
+    else if(! digitalRead(buttons[5])){
+      playNote(5);
+    }
+
+    else if(! digitalRead(buttons[6])){
+      playNote(6);
+    }
+
+    else if(! digitalRead(buttons[7])){
+      playNote(7);
+    }
+    
     else{
       //if no button is pressed, then turn off the speaker
       noTone(speaker);
     }
-  }
 
 }
