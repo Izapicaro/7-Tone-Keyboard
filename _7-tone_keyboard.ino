@@ -6,25 +6,37 @@
 LiquidCrystal lcd(13,12,11,10,9,8);
 
 //sets pins for each button
-const int buttons[7] = {A5,A4,A3,A2,A1,A0,3};
+const int buttons[] = {A5,A4,A3,A2,A1,A0,3,4,5};
 //sets pin for speaker
 const int speaker = 2;
 
 //array of pitches
-const char pitches[7] = {'B','A','G','F','E','D','C'};
+const char pitches[] = {'B','A','G','F','E','D','C'};
 //array of frequencies
-const int tones[7] = {494,440,392,349,330,294,262};
+const int tones[] = {494,440,392,349,330,294,262};
+const int lowTones[] = {247,220,196,175,165,147,121};
 
 //represents the pitch
 int noteTone = 0;
 
-void playNote(int x){
+//represents octave
+int octave = 1;
+
+void playNote(int x, int oct){
       
       //displays the note
       lcd.print(pitches[x]);
 
-      //sets the pitch to the note represented by the button pressed
-      noteTone = tones[x];
+      
+      if(oct == 1){
+        //sets the pitch to the note represented by the button pressed
+        noteTone = tones[x];
+      }
+
+      else if(oct == 2){
+        //sets the pitch to the note represented by the button pressed
+        noteTone = lowTones[x];
+      }
 
       //plays the note with the correct frequency
       tone(speaker,noteTone);
@@ -37,7 +49,7 @@ void setup() {
   lcd.begin(16,2);
 
   //sets all buttons as input devices
-  for(int i=0; i<=6; i++){
+  for(int i=0; i<=8; i++){
     pinMode(buttons[i],INPUT_PULLUP);
   }
 
@@ -47,40 +59,48 @@ void setup() {
 }
 
 void loop() {
+
+    if(! digitalRead(buttons[7])){
+      octave = 1;
+    }
+
+    else if(! digitalRead(buttons[8])){
+      octave = 2;
+    }
   
     //sets the location of the text on the display
     lcd.setCursor(0,0);
     
     if(! digitalRead(buttons[0])){
-      playNote(0);
+      playNote(0,octave);
     }
  
     else if(! digitalRead(buttons[1])){
-      playNote(1);
+      playNote(1,octave);
     }
 
     else if(! digitalRead(buttons[2])){
-      playNote(2);
+      playNote(2,octave);
     }
 
     else if(! digitalRead(buttons[3])){
-      playNote(3);
+      playNote(3,octave);
     }
 
     else if(! digitalRead(buttons[4])){
-      playNote(4);
+      playNote(4,octave);
     }
  
     else if(! digitalRead(buttons[5])){
-      playNote(5);
+      playNote(5,octave);
     }
 
     else if(! digitalRead(buttons[6])){
-      playNote(6);
+      playNote(6,octave);
     }
 
     else if(! digitalRead(buttons[7])){
-      playNote(7);
+      playNote(7,octave);
     }
     
     else{
