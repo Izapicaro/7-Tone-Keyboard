@@ -6,7 +6,8 @@
 LiquidCrystal lcd(13,12,11,10,9,8);
 
 //sets pins for each button
-const int buttons[] = {A5,A4,A3,A2,A1,A0,3,4,5};
+const int buttons[] = {A5,A4,A3,A2,A1,A0,3};
+const int octButtons[] = {4,5};
 //sets pin for speaker
 const int speaker = 2;
 
@@ -20,7 +21,7 @@ const int lowTones[] = {247,220,196,175,165,147,121};
 int noteTone = 0;
 
 //represents octave
-int octave = 1;
+int octave = 2;
 
 void playNote(int x, int oct){
       
@@ -49,8 +50,12 @@ void setup() {
   lcd.begin(16,2);
 
   //sets all buttons as input devices
-  for(int i=0; i<=8; i++){
+  for(int i=0; i<=6; i++){
     pinMode(buttons[i],INPUT_PULLUP);
+  }
+
+  for(int i=0; i<=1; i++){
+    pinMode(octButtons[i],INPUT_PULLUP);
   }
 
   //sets the speaker as an output device
@@ -60,11 +65,11 @@ void setup() {
 
 void loop() {
 
-    if(! digitalRead(buttons[7])){
+    if(! digitalRead(octButtons[0])){
       octave = 1;
     }
 
-    else if(! digitalRead(buttons[8])){
+    else if(! digitalRead(octButtons[1])){
       octave = 2;
     }
   
@@ -97,10 +102,6 @@ void loop() {
 
     else if(! digitalRead(buttons[6])){
       playNote(6,octave);
-    }
-
-    else if(! digitalRead(buttons[7])){
-      playNote(7,octave);
     }
     
     else{
