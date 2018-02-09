@@ -20,12 +20,14 @@ const int lowTones[] = {247,220,196,175,165,147,121};
 //represents the pitch
 int noteTone = 0;
 
-//represents octave
+//represents current octave
 int octave = 2;
 
+
+//function
 void playNote(int x, int oct){
       
-      //displays the note
+      //displays the note being played
       lcd.print(pitches[x]);
 
       
@@ -46,10 +48,10 @@ void playNote(int x, int oct){
 
 void setup() {
 
-  //number of columns and rows being used on the display
+  //number of columns and rows that can used on the display
   lcd.begin(16,2);
 
-  //sets all buttons as input devices
+  //sets buttons as input devices
   for(int i=0; i<=6; i++){
     pinMode(buttons[i],INPUT_PULLUP);
   }
@@ -64,11 +66,13 @@ void setup() {
 }
 
 void loop() {
-
+    
+    //switches to higher octave if relevant button is pressed
     if(! digitalRead(octButtons[0])){
       octave = 1;
     }
-
+    
+    //switches to lower octave if relevant button is pressed
     else if(! digitalRead(octButtons[1])){
       octave = 2;
     }
@@ -76,6 +80,9 @@ void loop() {
     //sets the location of the text on the display
     lcd.setCursor(0,0);
     
+      
+    //runs function to play note when relevant button is pressed
+      
     if(! digitalRead(buttons[0])){
       playNote(0,octave);
     }
