@@ -1,3 +1,4 @@
+//external library required for programming lcd display
 #include <LiquidCrystal.h>
 
 //7 tone keyboard program by Nathan Bhak and Chris Ye
