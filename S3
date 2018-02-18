@@ -7,7 +7,7 @@ const int tones[] = {494,440,392,349,330,294,262};
 
 int noteTone = 0;
 
-void playNote(int x, int oct){
+void playNote(int x){
   
   noteTone = tones[x];
   tone(speaker,noteTone);
