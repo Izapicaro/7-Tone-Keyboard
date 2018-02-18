@@ -63,7 +63,7 @@ void loop() {
     }
 
     else if(! digitalRead(buttons[6])){
-      playNote(6,octave);
+      playNote(6);
     }
     
     else{
