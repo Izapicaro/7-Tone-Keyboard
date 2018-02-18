@@ -9,5 +9,9 @@ void loop(){
   if(! digitalRead(3)){
     tone(speaker,262);
   }
-
+  
+  else{
+    noTone(speaker);
+  }
+  
 }
