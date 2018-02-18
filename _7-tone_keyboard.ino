@@ -54,11 +54,11 @@ void setup() {
 
   //sets buttons as input devices
   for(int i=0; i<=6; i++){
-    pinMode(buttons[i],INPUT_PULLUP);
+    pinMode(buttons[i],INPUT);
   }
 
   for(int i=0; i<=1; i++){
-    pinMode(octButtons[i],INPUT_PULLUP);
+    pinMode(octButtons[i],INPUT);
   }
 
   //sets the speaker as an output device
