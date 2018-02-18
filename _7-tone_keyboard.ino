@@ -16,7 +16,7 @@ const int speaker = 2;
 const char pitches[] = {'B','A','G','F','E','D','C'};
 //array of frequencies
 const int tones[] = {494,440,392,349,330,294,262};
-const int lowTones[] = {247,220,196,175,165,147,121};
+const int lowTones[] = {247,220,196,175,165,147,131};
 
 //represents the pitch
 int noteTone = 0;
