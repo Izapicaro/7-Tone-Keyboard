@@ -1,0 +1,9 @@
+const int speaker = 2;
+
+void setup() {
+  pinMode(speaker, OUTPUT);
+}
+
+void loop(){
+  tone(speaker,262);
+}
